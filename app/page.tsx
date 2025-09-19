@@ -445,7 +445,7 @@ import { CertificatesSection } from "@/components/certificates-section"
 
 
 // Set your backend URL here
-const BACKEND_URL = "http://localhost:5001"
+const BACKEND_URL = "https://krishna-furniture-backend.onrender.com"
 
 export default function HomePage() {
   return (
@@ -455,7 +455,6 @@ export default function HomePage() {
         <FeaturedProducts />
         <OwnerIntroduction />
         <ServicesOverview />
-        <CertificatesSection />
         <ReviewAndTestimonials />
       </main>
     </div>
