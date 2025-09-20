@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { ArrowLeft, Phone, MapPin, Clock, Mail, User } from "lucide-react";
 import Link from "next/link";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export default function ContactPage() {
   const [form, setForm] = useState({
     firstName: '',
@@ -32,18 +34,11 @@ export default function ContactPage() {
     setErrorMsg('');
 
     try {
-      // const res = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(form) // Send entire form object
-      // });
-
-      const res = await fetch('https://krishna-furniture-backend.onrender.com', {
+      const res = await fetch(`${BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-
 
       const data = await res.json();
       if (res.ok && data.success) {
@@ -77,23 +72,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Content */}
+      {/* Contact Form */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-            {/* Info Cards */}
-            <div className="space-y-8">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Get In Touch</h2>
-              <p className="text-muted-foreground mb-8">Contact Mohanlal Suthar, founder and senior carpenter.</p>
-              <div className="space-y-4">
-                <Card><CardContent className="p-6 flex gap-4"><Phone className="h-6 w-6"/>+91 6377624560 / +91 9783175728</CardContent></Card>
-                <Card><CardContent className="p-6 flex gap-4"><MapPin className="h-6 w-6"/>VPO Gamdi Devki, Sagwara, Dungarpur, Rajasthan - 314024</CardContent></Card>
-                <Card><CardContent className="p-6 flex gap-4"><User className="h-6 w-6"/>Skilled team of 10-20 workers specializing in woodwork, ceiling & aluminum.</CardContent></Card>
-                <Card><CardContent className="p-6 flex gap-4"><Clock className="h-6 w-6"/>Monday-Sunday: 8 AM - 9 PM (Emergency available)</CardContent></Card>
-              </div>
-            </div>
-
             {/* Contact Form */}
             <div>
               <Card>
@@ -109,10 +91,8 @@ export default function ContactPage() {
                     <div><Label htmlFor="firstName">First Name</Label><Input id="firstName" value={form.firstName} onChange={handleChange} /></div>
                     <div><Label htmlFor="lastName">Last Name</Label><Input id="lastName" value={form.lastName} onChange={handleChange} /></div>
                   </div>
-
                   <div><Label htmlFor="email">Email</Label><Input id="email" type="email" value={form.email} onChange={handleChange} /></div>
                   <div><Label htmlFor="phone">Phone</Label><Input id="phone" type="tel" value={form.phone} onChange={handleChange} /></div>
-
                   <div>
                     <Label htmlFor="service">Service Required</Label>
                     <select id="service" value={form.service} onChange={handleChange} className="w-full p-3 border rounded-md bg-background">
@@ -126,7 +106,6 @@ export default function ContactPage() {
                       <option value="consultation">Free Consultation</option>
                     </select>
                   </div>
-
                   <div><Label htmlFor="message">Message</Label><Textarea id="message" value={form.message} onChange={handleChange} className="min-h-[120px]" /></div>
 
                   <Button onClick={handleSubmit} className="w-full flex items-center justify-center" size="lg" disabled={loading}>
